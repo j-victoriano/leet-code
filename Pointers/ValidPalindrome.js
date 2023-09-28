@@ -24,5 +24,27 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 
 */
 let isPalindrome = (s) => {
-    
+    const isAlphaNumeric = c => (c.toLowerCase() >= 'a' && c.toLowerCase() <= 'z') || c >= '0' && c <= '9'
+
+    let left = 0;
+    let right = s.length - 1;
+    let skipLeft, skipRight, endsEqual = false;
+
+    while (left < right) {
+        //Checks if character is alphanumeric, if not, skip it
+        skipLeft = !isAlphaNumeric(s.charAt(left))
+        if (skipLeft) { left++; continue }
+
+        skipRight = !isAlphaNumeric(s.charAt(right))
+        if (skipRight) { right--; continue; }
+
+        //Compares both ends, if not equal, then it is not a palindrome. If yes, continue comparing to the middle
+        endsEqual = s.charAt(left).toLowerCase() === s.charAt(right).toLowerCase()
+        if (!endsEqual) return false
+
+        left++
+        right--
+    }
+    return true
+
 }
